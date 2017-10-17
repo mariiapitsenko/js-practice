@@ -1,46 +1,51 @@
-var courses = [
-    {
-     name: 'Native JS',
-     duration: 16,
-     limit: 4
+var courses = [{
+        name: 'Native JS',
+        duration: 16,
+        limit: 4,
+        subscribers: []
     },
     {
-     name: 'Angular JS',
-     duration: 9,
-     limit: 3
+        name: 'Angular JS',
+        duration: 9,
+        limit: 3,
+        subscribers: []
     },
     {
-     name: 'Node JS',
-     duration: 6,
-     limit: 2
+        name: 'Node JS',
+        duration: 6,
+        limit: 2,
+        subscribers: []
     },
     {
-     name: 'jQuery advanced',
-     duration: 6,
-     limit: 4
+        name: 'jQuery advanced',
+        duration: 6,
+        limit: 4,
+        subscribers: []
     },
     {
-     name: 'Unit testing',
-     duration: 2,
-     limit: 2
+        name: 'Unit testing',
+        duration: 2,
+        limit: 2,
+        subscribers: []
     },
     {
-     name: 'Performance and Optimization',
-     duration: 3,
-     limit: 2
+        name: 'Performance and Optimization',
+        duration: 3,
+        limit: 2,
+        subscribers: []
     }
-   ]
+]
 
 
 
-var users = [
-    {
-     firstName: 'John',
-     lastName: 'Doe',
-     email: 'jdoe@mail.com',
-     age: 30,
-     sex: 'Male',
-     phone: 123456789
+var users = [{
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'jdoe@mail.com',
+        age: 30,
+        sex: 'Male',
+        phone: 123456789,
+        id: 1
     },
     {
         firstName: 'Ivan',
@@ -48,7 +53,8 @@ var users = [
         email: 'ivanov@mail.com',
         age: 25,
         sex: 'Male',
-        phone: 555666443  
+        phone: 555666443,
+        id: 2
     },
     {
         firstName: 'Ann',
@@ -56,25 +62,146 @@ var users = [
         email: 'amai@mail.com',
         age: 26,
         sex: 'Female',
-        phone: 123678999  
+        phone: 123678999,
+        id: 3
     }
-   
-   ]
- 
+
+]
+
 //created a fucntion which add a new course ( a new object to array Courses)
-   function addCourse(name, duration, limit) {
-       this.name = name;
-       this.duration = duration;
-       this.limit = limit;
-       return courses.push({name, duration, limit});
-   }
-
-addCourse("React", 20, 10);
-
-//need to create a functionn which will be deleting course from an array courses
-
-function deleteCourses (name) {
+function addCourse(name, duration, limit, subscribers) {
     this.name = name;
-    return courses.push({name});
+    this.duration = duration;
+    this.limit = limit;
+    this.subscribers = subscribers;
+    return courses.push({
+        name,
+        duration,
+        limit,
+        subscribers: []
+    });
 }
-deleteCourses("Ddd");
+
+addCourse("React", 20, 1);
+
+//need to create a function which will be deleting course from an array courses
+
+function deleteCourse(arr, name) {
+    for (var i = 0; i < arr.length; i++) {
+
+        if (arr[i].name === name) {
+            arr.splice(i, 1);
+        }
+        // else {
+        //   console.log("no")
+        // }
+
+    }
+    console.log("The" + " " + name + " " + "course was removed from list")
+}
+
+//   deleteCourse(courses, 'Node JS');
+//   deleteCourse(courses, 'React');
+
+
+//function getting all list of trainees
+function getTraineeList() {
+    return users;
+}
+console.log(getTraineeList());
+
+
+
+//function - getting all list of courses
+function getCourseList() {
+    return courses;
+
+}
+console.log(getCourseList());
+
+
+
+//function "adding new trainee"
+function addTrainee(firstName, lastName, email, age, sex, phone) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.age = age;
+    this.sex = sex;
+    this.phone = phone;
+    console.log("The user" + " " + firstName + " " + lastName + " " + "was added for the Trainee list");
+    return users.push({
+        firstName,
+        lastName,
+        email,
+        age,
+        sex,
+        phone,
+
+    });
+
+}
+
+
+addTrainee("Ann", "Foo", "hfhfhf@jjsjjs.ru", 23, "female", 55544400);
+
+
+
+//function "deleting trainee from course"
+
+
+function deleteTrainee(arr, firstName, lastName) {
+    for (var i = 0; i < arr.length; i++) {
+
+        if (arr[i].firstName === firstName && arr[i].lastName === lastName) {
+            arr.splice(i, 1);
+        }
+        // else {
+        //   console.log("no")
+        // }
+
+    }
+    console.log('User' + " " + firstName + " " + lastName + " " + "was removed from trainee list")
+}
+
+deleteTrainee(users, "John", "Doe");
+
+
+//function subscribe to course
+
+
+
+
+// function addSubscribers(courseName, firstName, lastName) {
+//     for (i = 0; i < courses.length; i++) {
+//         if (courses[i].name === courseName) {
+
+//             return courses[i].subscribers.push(firstName + " " + lastName);
+//         }
+//     }
+// }
+
+
+
+function addSubs(courseName, firstName, lastName) {
+    for (i = 0; i < courses.length; i++) {
+        if (courses[i].name === courseName) {
+
+            if (courses[i].limit >= courses[i].subscribers.length + 1) {
+                // for (b = 0; b < courses[i].subscribers.length; b++) {
+                //     if (subscribers[b].firstName === firstName && subscribers[b].lastName === lastName) {
+                        courses[i].subscribers.push({
+                            firstName,
+                            lastName
+                        });
+
+                    }else console.log("Limit of course" + " " + courseName + " " + "is exceed");
+                }
+            } 
+        }
+//     }
+// }
+addSubs("React", "John", "Doe");
+addSubs("Native JS", "ggg", "ggg");
+addSubs("Native JS", "ggg", "kkk");
+addSubs("React", "John", "ggg");
