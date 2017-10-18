@@ -202,87 +202,83 @@
 // addSubs("Native JS", "ggg", "kkk");
 // addSubs("React", "John", "ggg");
 
+var courses = [{
+        name: 'Native JS',
+        duration: 16,
+        limit: 4,
+        subscribers: []
+    },
+    {
+        name: 'Angular JS',
+        duration: 9,
+        limit: 3,
+        subscribers: []
+    },
+    {
+        name: 'Node JS',
+        duration: 6,
+        limit: 1,
+        subscribers: []
+    },
+    {
+        name: 'jQuery advanced',
+        duration: 6,
+        limit: 4,
+        subscribers: []
+    },
+    {
+        name: 'Unit testing',
+        duration: 2,
+        limit: 2,
+        subscribers: []
+    },
+    {
+        name: 'Performance and Optimization',
+        duration: 3,
+        limit: 2,
+        subscribers: []
 
+    }
+];
+var users = [{
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'jdoe@mail.com',
+        age: 30,
+        sex: 'Male',
+        phone: 123456789,
+        subscriptions: []
+    },
+    {
+        firstName: 'Ivan',
+        lastName: 'Ivanov',
+        email: 'ivanov@mail.com',
+        age: 25,
+        sex: 'Male',
+        phone: 555666443,
+        subscriptions: []
+    },
+    {
+        firstName: 'Ann',
+        lastName: 'Mai',
+        email: 'amai@mail.com',
+        age: 26,
+        sex: 'Female',
+        phone: 123678999,
+        subscriptions: []
+    }
 
-
-
-
-
+]
 
 var app = (function () {
-    var courses = [{
-            name: 'Native JS',
-            duration: 16,
-            limit: 4,
-            subscribers: [],
-            courseID: 1,
-        },
-        {
-            name: 'Angular JS',
-            duration: 9,
-            limit: 3,
-            subscribers: [],
-            courseID: 2,
-        },
-        {
-            name: 'Node JS',
-            duration: 6,
-            limit: 2,
-            subscribers: [],
-            courseID: 3,
-        },
-        {
-            name: 'jQuery advanced',
-            duration: 6,
-            limit: 4,
-            subscribers: [],
-            courseID: 4,
-        },
-        {
-            name: 'Unit testing',
-            duration: 2,
-            limit: 2,
-            subscribers: [],
-            courseID: 5,
-        },
-        {
-            name: 'Performance and Optimization',
-            duration: 3,
-            limit: 2,
-            subscribers: [],
-            courseID: 6,
-        }
-    ];
-    var users = [{
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'jdoe@mail.com',
-            age: 30,
-            sex: 'Male',
-            phone: 123456789,
-            userID: 1
-        },
-        {
-            firstName: 'Ivan',
-            lastName: 'Ivanov',
-            email: 'ivanov@mail.com',
-            age: 25,
-            sex: 'Male',
-            phone: 555666443,
-            userID: 2
-        },
-        {
-            firstName: 'Ann',
-            lastName: 'Mai',
-            email: 'amai@mail.com',
-            age: 26,
-            sex: 'Female',
-            phone: 123678999,
-            userID: 3
-        }
 
-    ]
-    var subscriptions = [];
+
+    var courseCounter = 0;
+    var courses = [];
+    var users = [];
+    var userCounter = 0;
+
+
     return {
         getCourses: function () {
             return courses;
@@ -290,8 +286,8 @@ var app = (function () {
         },
         addCourse: function (options) {
             courses.push(options);
-            options.courseID = courses.length;
-            console.log("Course" + " " + options.name + " " + "is added to the list")
+            options.courseID = courseCounter++
+                console.log("Course" + " " + options.name + " " + "is added to the list")
 
         },
         deleteCourse: function (name) {
@@ -307,29 +303,83 @@ var app = (function () {
         },
         addUser: function (person) {
             users.push(person);
-            person.userID = users.length;
+            person.userID = userCounter++;
             console.log("User" + " " + person.firstName + " " + "is added to the traineelist")
 
         },
         deleteUser: function (person) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].firstName === person.firstName && users[i].lastName === person.lastName) {
-                    users.splice(i,1);
+                    users.splice(i, 1);
                     console.log("User" + " " + person.firstName + " " + "is removed from the traineelist")
-                } 
+                }
 
-        }
+            }
         },
-        addSubscription: function (userID, courseID) {
-            subscriptions[userID] = courseID;
-        }
+        addSubscription: function (courseID, userID) {
+            for (var i = 0; i < courses.length; i++) {
+                if (courses[i].courseID === courseID) {
+                    if (courses[i].limit >= courses[i].subscribers.length + 1) {
+                        for (k = 0; k < users.length; k++) {
+                            if (users[k].userID === userID) {
+                                courses[i].subscribers.push(users[k]);
+                                if (!users[k].subscriptions) {
+                                    users[k].subscriptions = [];
+                                }
+                                users[k].subscriptions.push(courses[i]);
+
+                                console.log("Subscriber" + " " + users[k].firstName + " " + users[k].lastName + " " + "has been subscribed to" + " " + courses[i].name + " " + "course")
+
+                            }
+                        }
+                    } else console.log("Limit of course" + " " + courses[i].name + " " + "is exceed");
+                }
+            }
+        },
+        deleteSubscription: function (courseID, userID) {
+            for (var i = 0; i < courses.length; i++) {
+                if (courses[i].courseID === courseID) {
+                        if (courses[i].subscribers.length === 0) {
+                            console.log("There are no subscribers at course" + " " + courses[i].name);
+                            return;
+                        }
+                        for (var b = 0; b < courses[i].subscribers.length; b++) {
+
+                            courses[i].subscribers.splice(b, 1);
+                            console.log("Subscription for the course" + " " + courses[i].name + " " + "is deleted");
+                
+                            // }   
+                            // for (var f=0; f<users.length; f++) {
+                            //     for (var j = 0; j<users[f].subscriptions.length; j++ ){
+                            //     users[f].subscriptions.splice(i,1);
+                            //     }
+                            // }
+                        }
+                        for (var k = 0; k<users.length; k++){
+                            
+                                  for (var t=0; t<users[k].subscriptions; t++) {
+                                      if (users[k].subscriptions.userID === userID){
+                                      users[k].subscriptions.splice(t, 1);
+                                      }
+                                  }  
+                          }
+                    }
+                    }
+                   
+            }
+ 
     }
+
 })();
 
 
 
-
-
+for (var i = 0; i < courses.length; i++) {
+    app.addCourse(courses[i]);
+}
+for (var j = 0; j < users.length; j++) {
+    app.addUser(users[j]);
+}
 
 //examples of addind\deleting and so on...
 app.addCourse({
@@ -353,4 +403,12 @@ app.addUser({
 });
 
 
-app.deleteUser({firstName: "John", lastName: "Doe"});
+app.deleteUser({
+    firstName: "John",
+    lastName: "Doe"
+});
+
+app.addSubscription(1, 1);
+app.deleteSubscription(1,1);
+
+
