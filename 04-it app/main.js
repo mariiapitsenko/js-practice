@@ -285,10 +285,11 @@ var app = (function () {
 
         },
         addCourse: function (options) {
-            courses.push(options);
+             courses.push(options);
             options.courseID = courseCounter++
                 console.log("Course" + " " + options.name + " " + "is added to the list")
-
+            
+        
         },
         deleteCourse: function (name) {
             for (var i = 0; i < courses.length; i++) {
@@ -320,12 +321,14 @@ var app = (function () {
             for (var i = 0; i < courses.length; i++) {
                 if (courses[i].courseID === courseID) {
                     if (courses[i].limit >= courses[i].subscribers.length + 1) {
-                        for (k = 0; k < users.length; k++) {
+                        for (var k = 0; k < users.length; k++) {
                             if (users[k].userID === userID) {
+                            
                                 courses[i].subscribers.push(users[k]);
                                 if (!users[k].subscriptions) {
                                     users[k].subscriptions = [];
                                 }
+                                
                                 users[k].subscriptions.push(courses[i]);
 
                                 console.log("Subscriber" + " " + users[k].firstName + " " + users[k].lastName + " " + "has been subscribed to" + " " + courses[i].name + " " + "course")
@@ -339,36 +342,37 @@ var app = (function () {
         deleteSubscription: function (courseID, userID) {
             for (var i = 0; i < courses.length; i++) {
                 if (courses[i].courseID === courseID) {
-                        if (courses[i].subscribers.length === 0) {
-                            console.log("There are no subscribers at course" + " " + courses[i].name);
-                            return;
-                        }
+                    if (courses[i].subscribers.length === 0) {
+                        console.log("There are no subscribers at course" + " " + courses[i].name);
+                        return;
+                    };
+           
+                    {
+               
                         for (var b = 0; b < courses[i].subscribers.length; b++) {
-
+                            if (courses[i].subscribers[b].userID === userID){
                             courses[i].subscribers.splice(b, 1);
+                        
                             console.log("Subscription for the course" + " " + courses[i].name + " " + "is deleted");
-                
-                            // }   
-                            // for (var f=0; f<users.length; f++) {
-                            //     for (var j = 0; j<users[f].subscriptions.length; j++ ){
-                            //     users[f].subscriptions.splice(i,1);
-                            //     }
-                            // }
                         }
-                        for (var k = 0; k<users.length; k++){
-                            
-                                  for (var t=0; t<users[k].subscriptions; t++) {
-                                      if (users[k].subscriptions.userID === userID){
-                                      users[k].subscriptions.splice(t, 1);
-                                      }
-                                  }  
-                          }
                     }
+               
+                    };
+                    for (var k = 0; k < users.length; k++) {
+                        if (users[k].userID === userID) {
+                            for (var t = 0; t < users[k].subscriptions.length; t++) {
+                                users[k].subscriptions.splice(t, 1);
+                            }
+                        }
                     }
-                   
+
+                }
+
             }
- 
+        }
     }
+
+
 
 })();
 
@@ -408,7 +412,14 @@ app.deleteUser({
     lastName: "Doe"
 });
 
+
 app.addSubscription(1, 1);
-app.deleteSubscription(1,1);
+app.addSubscription(1, 2);
+app.addSubscription(1, 3);
+app.addSubscription(2, 1);
+app.addSubscription(2, 1);
 
 
+// app.deleteSubscription(1,1);
+app.deleteSubscription(1, 1);
+// app.deleteSubscription(1,3);
