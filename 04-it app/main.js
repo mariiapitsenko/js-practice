@@ -81,8 +81,15 @@ var app = (function () {
 
         },
         addCourse: function (options) {
-            courses.push(options);
+            for (var i=0; i<courses.length; i++) {
+                if(courses[i].name === options.name) {
+                    console.log("This course is ready exist in course list");
+                    return;
+                }
+            }
             options.courseID = courseCounter++;
+            courses.push(options);
+            
             console.log("Course" + " " + options.name + " " + "is added to the list");
         },
         deleteCourse: function (name) {
@@ -97,8 +104,15 @@ var app = (function () {
             return users;
         },
         addUser: function (person) {
-            users.push(person);
+            for(var i=0; i<users.length; i++) {
+                if (users[i].firstName === person.firstName && users[i].lastName === person.lastName) {
+                    console.log("This user is already exist in trainee list");
+                    return;
+                }
+            }
             person.userID = userCounter++;
+            users.push(person);
+            
             console.log("User" + " " + person.firstName + " " + "is added to the traineelist")
 
         },
@@ -173,7 +187,6 @@ var app = (function () {
 
 
 for (var i = 0; i < courses.length; i++) {
-    
     app.addCourse(courses[i]);
 }
 for (var j = 0; j < users.length; j++) {
@@ -189,7 +202,20 @@ app.addCourse({
 
 });
 
+app.addCourse({
+    name: "React",
+    duration: 1,
+    limit: 1,
+    subscribers: [],
 
+});
+app.addCourse({
+    name: "gg",
+    duration: 1,
+    limit: 1,
+    subscribers: [],
+
+});
 app.deleteCourse("Native JS");
 
 app.addUser({
@@ -201,6 +227,15 @@ app.addUser({
     phone: 333444
 });
 
+
+app.addUser({
+    firstName: "Bob",
+    lastName: "Dilan",
+    email: "fffs@jfjfj,ru",
+    age: 23,
+    sex: "male",
+    phone: 333444
+});
 
 app.deleteUser({
     firstName: "John",
