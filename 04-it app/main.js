@@ -82,7 +82,7 @@ var app = (function () {
         },
         addCourse: function (options) {
             for (var i=0; i<courses.length; i++) {
-                if(courses[i].name === options.name) {
+                if(courses[i].name.toLowerCase() === options.name.toLowerCase()) {
                     console.log("This course is ready exist in course list");
                     return;
                 }
@@ -94,7 +94,7 @@ var app = (function () {
         },
         deleteCourse: function (name) {
             for (var i = 0; i < courses.length; i++) {
-                if (courses[i].name === name) {
+                if (courses[i].name.toLowerCase() === name.toLowerCase()) {
                     courses.splice(i, 1);
                 }
             }
@@ -105,7 +105,7 @@ var app = (function () {
         },
         addUser: function (person) {
             for(var i=0; i<users.length; i++) {
-                if (users[i].firstName === person.firstName && users[i].lastName === person.lastName) {
+                if (users[i].firstName.toLowerCase() === person.firstName.toLowerCase() && users[i].lastName.toLowerCase() === person.lastName.toLowerCase()) {
                     console.log("This user is already exist in trainee list");
                     return;
                 }
@@ -118,7 +118,7 @@ var app = (function () {
         },
         deleteUser: function (person) {
             for (var i = 0; i < users.length; i++) {
-                if (users[i].firstName === person.firstName && users[i].lastName === person.lastName) {
+                if (users[i].firstName.toLowerCase() === person.firstName.toLowerCase() && users[i].lastName.toLowerCase() === person.lastName.toLowerCase()) {
                     users.splice(i, 1);
                     console.log("User" + " " + person.firstName + " " + "is removed from the traineelist")
                 }
@@ -253,3 +253,6 @@ app.addSubscription(2, 1);
 // app.deleteSubscription(1,1);
 app.deleteSubscription(1, 1);
 // app.deleteSubscription(1,3);
+
+
+app.addCourse({name: 'node js'});
