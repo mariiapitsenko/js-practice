@@ -3,15 +3,18 @@
     
     var settings = $.extend(
       {
-        backgroundColor: "white",
+        backgroundColor: "#ccc",
         odd: false
-      },
+      }, options
     );
  
-    return this.children(settings.children + settings.odd? ":odd": ":even").css(
-      {
-      backgroundColor: settings.backgroundColor
+    return this.each(function(index, el){
+      jQuery(el).children(settings.children + (settings.odd? ":odd": ":even")).css(
+        {
+        backgroundColor: settings.backgroundColor
+      });
     });
+
   };
 
 })(jQuery);
