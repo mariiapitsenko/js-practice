@@ -35,12 +35,10 @@ describe("Delete course", function() {
     expect(coursesApp.deleteCourse).toBeDefined();
   });
   it("delete course 'javascript'", function() {
-    // coursesApp.addCourse({name: 'javascript'});
     coursesApp.deleteCourse("javascript");
     expect(coursesApp.getCourses().length).toEqual(0);
   });
   it("delete course 'javascript' is removed from the list", function() {
-    // coursesApp.addCourse({name: 'javascript'});
     coursesApp.deleteCourse("javascript");
     expect(coursesApp.deleteCourse("javascript")).toEqual(
       "Course javascript is removed from the list"
