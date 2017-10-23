@@ -1,16 +1,17 @@
 (function($) {
   $.fn.zebra = function(options) {
+    
     var settings = $.extend(
       {
         backgroundColor: "white",
-        odd: true
+        odd: false
       },
-      options
     );
-
-    return this.children(settings.children).css(
+ 
+    return this.children(settings.children + settings.odd? ":odd": ":even").css(
       {
       backgroundColor: settings.backgroundColor
     });
   };
+
 })(jQuery);
