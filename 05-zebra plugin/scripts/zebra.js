@@ -2,12 +2,14 @@
   $.fn.zebra = function(options) {
     var settings = $.extend(
       {
-        backgroundColor: "white"
+        backgroundColor: "white",
+        odd: true
       },
       options
     );
 
-    return this.children(settings.children).css({
+    return this.children(settings.children).css(
+      {
       backgroundColor: settings.backgroundColor
     });
   };
