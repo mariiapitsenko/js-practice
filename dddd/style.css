@@ -1,0 +1,20 @@
+.gallery {
+    padding-top: 50px;
+}
+
+.images {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.image-item img {
+    width: 100%;
+}
+
+.slide-next,
+.slide-prev {
+    width: 50px;
+    height: 50px;
+    color: rgb(167, 148, 148);
+    font-size: 50px;
+}
