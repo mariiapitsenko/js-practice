@@ -9,9 +9,6 @@ var $slider = $(this).find('.image-item'),
     $next = $parent.find(".slide-next"),
     $prev = $parent.find(".slide-prev");
 
-// var $parentBtn = $(".nav-btn");
-// var $next = $(".slide-next");
-// var $prev = $(".slide-prev");
 
 function slide() {
     var item = $slider.eq(currentslide);
