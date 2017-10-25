@@ -1,5 +1,6 @@
 .gallery {
     padding-top: 50px;
+    position: relative;
 }
 
 .images {
@@ -7,7 +8,15 @@
     text-align: center;
 }
 
+.image-item {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .image-item img {
+    display: block;
     width: 100%;
 }
 
@@ -17,6 +26,8 @@
     height: 50px;
     color: rgb(167, 148, 148);
     font-size: 50px;
+    position: relative;
+    z-index: 100;
 }
 
 /* .fade {
