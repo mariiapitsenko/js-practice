@@ -20,17 +20,15 @@
         var item = $slider.eq(currentslide);
         $slider.hide();
         item.css("display", "inline-block");
-        item.animate({ "opacity": "1" }, 1000);
+        item.animate({ "opacity": "1"}, 1000 );
       };
       slide();
       next = function() {
         currentslide += 1;
-        console.log(currentslide);
-        var prevS  = currentslide-1;
-        console.log(prevS);
         // prevS.animate({'opacity' : '0'}, 1000);
+        
+        // item.animate({'opacity' : '1'}, 1000);
 
-        // currentslide.animate({'opacity' : '1'}, 1000);
 
         if (currentslide > $slider.length - 1) {
           currentslide = 0;
